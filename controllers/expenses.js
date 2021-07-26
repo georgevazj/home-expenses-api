@@ -20,6 +20,40 @@ const expensesGet = async(req = request, res = response) => {
 
 }
 
+const expensesPost = async(req, res = response) => {
+    const { fecha, categoria, subcategoria, descripcion, comentario, importe, estado } = req.body;
+    const expense = new Expense({
+        fecha,
+        categoria,
+        subcategoria,
+        descripcion,
+        comentario,
+        importe,
+        estado
+    });
+
+    await expense.save();
+    res.json(expense);
+}
+
+const expensesPut = async(req = request, res = response) => {
+    const { id } = req.params;
+    const { _id, ...resto } = req.body;
+
+    const expense = await Expense.findOneAndUpdate(id, resto);
+    res.json(expense);
+}
+
+const expensesDelete = async(req = request, res = response) => {
+    const { id } = req.params;
+    const expense = await Expense.findByIdAndUpdate(id, { estado: false });
+    res.json(expense);
+}
+
+// Exportacion de los controladores
 module.exports = {
-    expensesGet
+    expensesGet,
+    expensesPost,
+    expensesPut,
+    expensesDelete
 };
