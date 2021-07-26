@@ -6,7 +6,13 @@ class Server {
     constructor() {
         this.app = express()
         this.port = process.env.PORT
+        this.expensesPath = '/api/expenses'
+
+        // Conectarse a la base de datos
         this.conectarDB()
+
+        // Rutas del API
+        this.routes()
     }
 
     async conectarDB() {
@@ -14,6 +20,7 @@ class Server {
     }
 
     routes() {
+        this.app.use(this.expensesPath, require('../routes/expenses'))
 
     }
 

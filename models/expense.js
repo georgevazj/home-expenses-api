@@ -24,6 +24,10 @@ const ExpenseSchema = Schema({
         type: Number,
         required: [true, 'El importe es obligatorio']
     },
+    estado: {
+        type: Boolean,
+        default: true
+    },
 })
 
 ExpenseSchema.methods.toJson = function() {
