@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const morgan = require('morgan');
 const { dbConnection } = require('../database/config')
 
 class Server {
@@ -26,6 +27,9 @@ class Server {
     middlewares() {
         // CORS
         this.app.use(cors())
+
+        // Log
+        this.app.use(morgan('combined'))
 
         // Lectura y parseo de JSON
         this.app.use(express.json())
